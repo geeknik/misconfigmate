@@ -1,0 +1,775 @@
+[
+    {
+        "id": 0,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.atlassian.net",
+            "path": [
+                "/secure/Signup!default.jspa"
+            ],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": ["atl-traceid:"],
+            "fingerprints": ["Sign up for Jira"]
+        },
+        "metadata": {
+            "service": "atlassian",
+            "serviceName": "Atlassian Jira Open Signups",
+            "description": "Atlassian Jira Open Signups",
+            "reproductionSteps": [
+                "Visit the URL",
+                "Follow the steps in the references"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/atlassian-jira/open-user-registration",
+                "https://confluence.atlassian.com/adminjiraserver072/enabling-public-signup-and-captcha-828787685.html"
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.atlassian.net",
+            "path": ["/servicedesk/customer/user/login"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "atl-traceid:",
+                "&quot;sdUserSignUpEnabled&quot;:true",
+                "Log in to Jira, Confluence, and all other Atlassian Cloud products here."
+            ],
+            "fingerprints": [
+                "&quot;sdUserSignUpEnabled&quot;:true",
+                "Log in to Jira, Confluence, and all other Atlassian Cloud products here."
+            ]
+        },
+        "metadata": {
+            "service": "atlassian",
+            "serviceName": "Atlassian Jira Service Desk",
+            "description": "Atlassian Jira Service Desk Open Signups",
+            "reproductionSteps": [
+                "Visit the URL",
+                "Follow the instructions to signup"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/atlassian-jira/atlassian-jira-service-desk-open-signups",
+                "https://medium.com/@intideceukelaire/hundreds-of-internal-servicedesks-exposed-due-to-covid-19-ecd0baec87bd",
+                "https://support.atlassian.com/jira-service-management-cloud/docs/customer-permissions-for-your-service-project-and-jira-site/",
+                "https://support.atlassian.com/user-management/docs/control-how-users-get-access-to-products/"
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://groups.google.com",
+            "path": ["/g/{TARGET}"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "continue=https%3A%2F%2Fgroups.google.com",
+                "<base href=\"https://groups.google.com/\">",
+                "<meta name=\"(application-name|apple-mobile-web-app-title)\" content=\"Google Groups\">",
+                "<link rel=\"manifest\" crossorigin=\"use-credentials\" href=\"_/GroupsFrontendUi/manifest.json\">"
+            ],
+            "fingerprints": [
+                "</u>This is the group for <a href=\"",
+                "(aria-placeholder|value|aria-label)=\"Search conversations within "
+            ]
+        },
+        "metadata": {
+            "service": "google",
+            "serviceName": "Google Groups Misconfigured Read Permissions",
+            "description": "Google Groups can be left misconfigured and leak sensitive company data if access permissions aren't properly set",
+            "reproductionSteps": [
+                "Visit the URL",
+                "Follow the steps in the references"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/google-groups/google-groups",
+                "https://workspaceupdates.googleblog.com/2018/06/configure-your-google-groups-settings.html"
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.storage.googleapis.com",
+            "path": ["/"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "<ListBucketResult",
+                "<Code>AccessDenied</Code>",
+                "<Message>Access denied.</Message>",
+                "<Details>Anonymous caller does not have storage.objects.list access to the Google Cloud Storage bucket.</Details>"
+            ],
+            "fingerprints": [
+                "<ListBucketResult",
+                "<Name>"
+            ]
+        },
+        "metadata": {
+            "service": "google",
+            "serviceName": "Google CloudStorage Bucket Misconfigured Read Permissions",
+            "description": "GCP Storage Bucket can be left misconfigured and allow anyone to access files and objects potentially containing sensitive data",
+            "reproductionSteps": [
+                "Visit the URL",
+                "Observe the response for any disclosed information (like private files)",
+                "View the references for more information"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/google-cloud-storage-bucket/google-cloud-storage-bucket",
+                "https://cloud.google.com/storage/docs/access-control/making-data-public#buckets",
+                "https://cloud.google.com/storage/docs/public-access-prevention"
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.freshservice.com",
+            "path": [
+                "/support/signup"
+            ],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "<h2>Browse help articles</h2>",
+                "(<h2>)?Announcements</(h2|h3)>",
+                "var TICKET_SITE_KEY"
+            ],
+            "fingerprints": [
+                "<title>Signup for a new account"
+            ]
+        },
+        "metadata": {
+            "service": "freshworks",
+            "serviceName": "Freshworks Freshservice Open Signups",
+            "description": "Freshworks Freshservice Open Signups may allow unauthorized access",
+            "reproductionSteps": [
+                "Visit the URL",
+                "Follow the steps in the references"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/freshworks-freshservice/open-user-registration",
+                "https://infosecwriteups.com/hundreds-of-companies-internal-data-exposed-part-2-the-freshservice-misconfiguration-a9432c0b5dc8"
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.atlassian.net",
+            "path": [
+                "/wiki/spaces"
+            ],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "location: /wiki",
+                "<title>Log in with Atlassian account</title>"
+            ],
+            "fingerprints": [
+                "<meta id=\"confluence-context-path\" name=\"confluence-context-path\" content=\"/wiki\">",
+                "<meta id=\"confluence-base-url\" name=\"confluence-base-url\" content=\"https://[^\\.]+.atlassian.net/wiki\">"
+            ]
+        },
+        "metadata": {
+            "service": "atlassian",
+            "serviceName": "Atlassian Misconfigured Spaces",
+            "description": "Atlassian Confluence Spaces may be publicly accessible",
+            "reproductionSteps": [
+                "Visit the URL",
+                "Follow the steps in the references"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/atlassian-confluence/misconfigured-spaces",
+                "https://confluence.atlassian.com/doc/assign-space-permissions-139460.html",
+                "https://support.atlassian.com/confluence-cloud/docs/make-a-space-public/"
+            ]
+        }
+    },
+    {
+        "id": 14,
+        "request": {
+            "method": "POST",
+            "baseURL": "https://{TARGET}.lightning.force.com",
+            "path": [
+                "/aura",
+                "/sfsites/aura",
+                "/s/sfsites/aura"
+            ],
+            "headers": [
+                {
+                    "Content-Type": "application/json"
+                }
+            ],
+            "body": "{}"
+        },
+        "response": {
+            "statusCode": 401,
+            "detectionFingerprints": [
+                "markup:\\/\\/aura:invalidSession",
+                "aura:\\/\\/String"
+            ],
+            "fingerprints": [
+                "markup:\\/\\/aura:invalidSession",
+                "aura:\\/\\/String"
+            ]
+        },
+        "metadata": {
+            "service": "salesforce",
+            "serviceName": "Salesforce Lightning Aura Component Enabled",
+            "description": "Salesforce Lightning Aura Component is enabled and if access controls are not properly enforced, it may introduce several security issues",
+            "reproductionSteps": [
+                "Replicate the POST request",
+                "Observe the response manually and further enumerate global and custom Salesforce Objects",
+                "View the references for more information"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/salesforce/salesforce-lightning-aura-components-enabled",
+                "https://www.enumerated.ie/index/salesforce",
+                "https://www.enumerated.ie/index/salesforce-lightning-tinting-the-windows"
+            ]
+        }
+    },
+    {
+        "id": 15,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.s3.amazonaws.com",
+            "path": ["/"],
+            "body": null
+        },
+        "response": {
+            "statusCode": [200, 403],
+            "detectionFingerprints": [
+                "<ListBucketResult",
+                "<Code>AccessDenied</Code>",
+                "<Message>Access denied.</Message>",
+                "x-amz-bucket-region"
+            ],
+            "fingerprints": [
+                "<ListBucketResult",
+                "<Name>"
+            ]
+        },
+        "metadata": {
+            "service": "aws-s3",
+            "serviceName": "AWS S3 Bucket with Misconfigured List Permissions",
+            "description": "AWS S3 Bucket can be left misconfigured and allow anyone to list files and objects potentially containing sensitive data",
+            "reproductionSteps": [
+                "Visit the S3 Bucket API endpoint",
+                "Observe the response for any disclosed information",
+                "View the references for more information"
+            ],
+            "references": [
+                "https://bugology.intigriti.io/misconfig-mapper-docs/services/aws-s3/misconfigured-list-permissions",
+                "https://blog.intigriti.com/hacking-tools/hacking-misconfigured-aws-s3-buckets-a-complete-guide"
+            ]
+        }
+    },
+    {
+        "id": 17,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.blob.core.windows.net",
+            "path": ["/"],
+            "body": null
+        },
+        "response": {
+            "statusCode": [200, 403],
+            "detectionFingerprints": [
+                "<EnumerationResults",
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+                "<Error><Code>InvalidQueryParameterValue</Code>"
+            ],
+            "fingerprints": [
+                "<EnumerationResults",
+                "<Containers>",
+                "<Container>"
+            ]
+        },
+        "metadata": {
+            "service": "azure",
+            "serviceName": "Azure Blob Storage Public Access",
+            "description": "Azure Blob Storage containers can be misconfigured to allow public access, potentially exposing sensitive data",
+            "reproductionSteps": [
+                "Visit the Azure Blob Storage endpoint",
+                "Check for publicly accessible containers and blobs",
+                "Review exposed data"
+            ],
+            "references": [
+                "https://docs.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-prevent",
+                "https://docs.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure"
+            ]
+        }
+    },
+    {
+        "id": 18,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.visualstudio.com",
+            "path": ["/_apis/projects"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "\"count\":",
+                "\"value\":",
+                "\"id\":"
+            ],
+            "fingerprints": [
+                "\"visibility\":\"public\"",
+                "\"state\":\"wellFormed\""
+            ]
+        },
+        "metadata": {
+            "service": "azure-devops",
+            "serviceName": "Azure DevOps Public Projects",
+            "description": "Azure DevOps organizations may have projects configured for public visibility, potentially exposing source code and development artifacts",
+            "reproductionSteps": [
+                "Access the Azure DevOps API endpoint",
+                "Check for publicly visible projects",
+                "Review exposed content"
+            ],
+            "references": [
+                "https://docs.microsoft.com/en-us/azure/devops/organizations/public/make-project-public",
+                "https://docs.microsoft.com/en-us/azure/devops/organizations/security/access-levels"
+            ]
+        }
+    },
+    {
+        "id": 19,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.notion.site",
+            "path": ["/"],
+            "body": null
+        },
+        "response": {
+            "statusCode": [200, 404],
+            "detectionFingerprints": [
+                "notion-browser_id",
+                "notion_locale",
+                "x-notion-request-id"
+            ],
+            "fingerprints": [
+                "\"publicAccess\":true",
+                "\"requireLogin\":false"
+            ]
+        },
+        "metadata": {
+            "service": "notion",
+            "serviceName": "Notion Public Pages",
+            "description": "Notion pages can be set to public access, potentially exposing internal documentation",
+            "reproductionSteps": [
+                "Check Notion page sharing settings",
+                "Verify public page accessibility",
+                "Review exposed content"
+            ],
+            "references": [
+                "https://www.notion.so/help/sharing-and-permissions",
+                "https://www.notion.so/help/public-pages-and-web-publishing"
+            ]
+        }
+    },
+    {
+        "id": 20,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://trello.com",
+            "path": ["/b/{TARGET}/data.json"],
+            "body": null
+        },
+        "response": {
+            "statusCode": [200],
+            "detectionFingerprints": [
+                "\"id\":",
+                "\"shortLink\":"
+            ],
+            "fingerprints": [
+                "\"isPublic\":true",
+                "\"viewable\":true"
+            ]
+        },
+        "metadata": {
+            "service": "trello",
+            "serviceName": "Trello Public Boards",
+            "description": "Trello boards can be set to public, exposing project information and attachments. Board IDs are 8-character alphanumeric strings.",
+            "reproductionSteps": [
+                "Check if board exists by accessing /b/{BOARD_ID}/data.json",
+                "Verify board visibility in the JSON response",
+                "Review exposed data if public"
+            ],
+            "references": [
+                "https://help.trello.com/article/789-changing-the-visibility-of-a-board",
+                "https://help.trello.com/article/812-making-a-public-board-private"
+            ]
+        }
+    },
+    {
+        "id": 21,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://app.asana.com",
+            "path": ["/0/{TARGET}"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "asana-client",
+                "\"projectId\":"
+            ],
+            "fingerprints": [
+                "\"public_access\":true",
+                "\"guest_access_enabled\":true"
+            ]
+        },
+        "metadata": {
+            "service": "asana",
+            "serviceName": "Asana Public Projects",
+            "description": "Asana projects can be configured for public access, exposing task and project information",
+            "reproductionSteps": [
+                "Check Asana project sharing settings",
+                "Verify public project accessibility",
+                "Review exposed project data"
+            ],
+            "references": [
+                "https://asana.com/guide/help/projects/privacy",
+                "https://asana.com/guide/help/organizations/guests"
+            ]
+        }
+    },
+    {
+        "id": 22,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.basecampapi.com",
+            "path": ["/projects"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "X-Basecamp-Login-Required",
+                "\"type\":\"project\""
+            ],
+            "fingerprints": [
+                "\"public\":true",
+                "\"accessible\":true"
+            ]
+        },
+        "metadata": {
+            "service": "basecamp",
+            "serviceName": "Basecamp Public Access",
+            "description": "Basecamp projects can be exposed publicly, potentially revealing internal communications and files",
+            "reproductionSteps": [
+                "Check Basecamp project visibility",
+                "Verify public access settings",
+                "Review exposed content"
+            ],
+            "references": [
+                "https://3.basecamp-help.com/article/150-privacy-security",
+                "https://3.basecamp-help.com/article/144-sharing-links"
+            ]
+        }
+    },
+    {
+        "id": 23,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.monday.com",
+            "path": ["/boards/public"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "monday-client-id",
+                "\"board_kind\":"
+            ],
+            "fingerprints": [
+                "\"is_public\":true",
+                "\"allow_guest_access\":true"
+            ]
+        },
+        "metadata": {
+            "service": "monday",
+            "serviceName": "Monday.com Public Boards",
+            "description": "Monday.com boards can be configured for public sharing, exposing project data and files",
+            "reproductionSteps": [
+                "Check board sharing settings",
+                "Verify public board accessibility",
+                "Review exposed board data"
+            ],
+            "references": [
+                "https://support.monday.com/hc/en-us/articles/360002543719-Board-permissions",
+                "https://support.monday.com/hc/en-us/articles/360002144999-Share-a-board-with-external-guests"
+            ]
+        }
+    },
+    {
+        "id": 24,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://api.github.com",
+            "path": ["/users/{TARGET}/gists"],
+            "headers": [
+                {
+                    "Accept": "application/vnd.github.v3+json"
+                }
+            ],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "\"gist_id\":",
+                "\"public\":"
+            ],
+            "fingerprints": [
+                "\"public\":true",
+                "\"files\":"
+            ]
+        },
+        "metadata": {
+            "service": "github",
+            "serviceName": "GitHub Public Gists/Repos",
+            "description": "GitHub repositories and gists may be accidentally set to public, exposing source code and sensitive data",
+            "reproductionSteps": [
+                "Check repository visibility settings",
+                "Search for public gists from organization members",
+                "Review exposed content"
+            ],
+            "references": [
+                "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility",
+                "https://docs.github.com/en/github/writing-on-github/editing-and-sharing-content-with-gists/creating-gists"
+            ]
+        }
+    },
+    {
+        "id": 25,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://api.bitbucket.org",
+            "path": ["/2.0/repositories/{TARGET}"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "\"scm\":",
+                "\"has_wiki\":"
+            ],
+            "fingerprints": [
+                "\"is_private\":false",
+                "\"type\":\"repository\""
+            ]
+        },
+        "metadata": {
+            "service": "bitbucket",
+            "serviceName": "Bitbucket Public Repos",
+            "description": "Bitbucket repositories may be unintentionally public, exposing source code and sensitive data",
+            "reproductionSteps": [
+                "Check repository visibility",
+                "Verify access controls",
+                "Review exposed content"
+            ],
+            "references": [
+                "https://support.atlassian.com/bitbucket-cloud/docs/make-a-repository-public-or-private/",
+                "https://support.atlassian.com/bitbucket-cloud/docs/repository-privacy-access-and-security/"
+            ]
+        }
+    },
+    {
+        "id": 26,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://registry.npmjs.org",
+            "path": ["/{TARGET}"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "\"_id\":",
+                "\"versions\":"
+            ],
+            "fingerprints": [
+                "\"private\":false",
+                "\"access\":\"public\""
+            ]
+        },
+        "metadata": {
+            "service": "npm",
+            "serviceName": "NPM Private Packages Exposed",
+            "description": "NPM packages intended to be private may be accidentally published publicly",
+            "reproductionSteps": [
+                "Check package visibility",
+                "Verify package access settings",
+                "Review package contents for sensitive data"
+            ],
+            "references": [
+                "https://docs.npmjs.com/packages-and-modules/private-packages",
+                "https://docs.npmjs.com/packages-and-modules/private-modules/deploying-private-packages"
+            ]
+        }
+    },
+    {
+        "id": 27,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://hub.docker.com",
+            "path": ["/v2/repositories/{TARGET}"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "\"namespace\":",
+                "\"repository_type\":"
+            ],
+            "fingerprints": [
+                "\"is_private\":false",
+                "\"pull_count\":"
+            ]
+        },
+        "metadata": {
+            "service": "dockerhub",
+            "serviceName": "Docker Hub Public Images",
+            "description": "Docker images intended to be private may be accidentally set to public, exposing sensitive configurations and data",
+            "reproductionSteps": [
+                "Check repository visibility settings",
+                "Verify image access controls",
+                "Review exposed Dockerfiles and configurations"
+            ],
+            "references": [
+                "https://docs.docker.com/docker-hub/repos/",
+                "https://docs.docker.com/docker-hub/access-tokens/"
+            ]
+        }
+    },
+    {
+        "id": 28,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://{TARGET}.readthedocs.io",
+            "path": ["/en/latest/"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "readthedocs-doc",
+                "\"docPath\":"
+            ],
+            "fingerprints": [
+                "\"private\":false",
+                "class=\"rst-content\""
+            ]
+        },
+        "metadata": {
+            "service": "readthedocs",
+            "serviceName": "ReadTheDocs Exposed Documentation",
+            "description": "ReadTheDocs projects may be public, potentially exposing internal documentation",
+            "reproductionSteps": [
+                "Check project visibility",
+                "Test public access to documentation",
+                "Review exposed content"
+            ],
+            "references": [
+                "https://docs.readthedocs.io/en/stable/privacy/",
+                "https://docs.readthedocs.io/en/stable/versions/"
+            ]
+        }
+    },
+    {
+        "id": 29,
+        "request": {
+            "method": "GET", 
+            "baseURL": "https://circleci.com/api/v1.1",
+            "path": ["/project/{TARGET}"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "\"vcs_type\":",
+                "\"build_num\":"
+            ],
+            "fingerprints": [
+                "\"has_artifacts\":true",
+                "\"is_private\":false"
+            ]
+        },
+        "metadata": {
+            "service": "circleci",
+            "serviceName": "CircleCI Exposed Configs",
+            "description": "CircleCI project configurations may be public, exposing build secrets and artifacts",
+            "reproductionSteps": [
+                "Check project visibility settings",
+                "Test build artifact access",
+                "Review exposed configurations"
+            ],
+            "references": [
+                "https://circleci.com/docs/2.0/security/",
+                "https://circleci.com/docs/2.0/managing-api-tokens/"
+            ]
+        }
+    },
+    {
+        "id": 30,
+        "request": {
+            "method": "GET",
+            "baseURL": "https://api.travis-ci.org",
+            "path": ["/repos/{TARGET}"],
+            "body": null
+        },
+        "response": {
+            "statusCode": 200,
+            "detectionFingerprints": [
+                "\"repo\":",
+                "\"last_build_id\":"
+            ],
+            "fingerprints": [
+                "\"public_key\":\"",
+                "\"private\":false"
+            ]
+        },
+        "metadata": {
+            "service": "travis",
+            "serviceName": "Travis CI Public Builds",
+            "description": "Travis CI builds may be public, exposing build logs and artifacts",
+            "reproductionSteps": [
+                "Check repository visibility",
+                "Test build log access",
+                "Review exposed data"
+            ],
+            "references": [
+                "https://docs.travis-ci.com/user/private-dependencies/",
+                "https://docs.travis-ci.com/user/github-oauth-scopes/"
+            ]
+        }
+    }
+]
