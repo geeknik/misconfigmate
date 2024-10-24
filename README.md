@@ -53,11 +53,6 @@ This Python port adds features like:
 pip install rich requests urllib3
 ```
 
-Or install all requirements:
-```bash
-pip install -r requirements.txt
-```
-
 ## 🚀 Quick Start
 
 Basic scan of all services:
